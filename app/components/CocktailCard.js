@@ -5,7 +5,7 @@ function controller() {
   // destructure all bindings, like react's props
   const { cocktail } = this;
 
-  this.name = cocktail.names[0];
+  this.name = cocktail.name;
   this.mainImage = cocktail.images[1];
   console.log(cocktail.images);
   this.description = cocktail.description.history;

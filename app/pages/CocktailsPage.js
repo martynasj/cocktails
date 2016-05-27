@@ -40,13 +40,16 @@ function controller(apiService) {
    */
   this.myFilter = function(searchCriteria) {
 
-    console.log(searchCriteria);
-    const searchInput = searchCriteria ? searchCriteria.toLowerCase() : null;
+    if (!searchCriteria) {
+      return () => true;
+    }
+
+    const searchInput = searchCriteria ? searchCriteria.toLowerCase() : true;
 
     // this function is run once with every object of array to be filtered
     return function (cocktail) {
       const name = cocktail.name.toLowerCase();
-      return searchInput === name;
+      return name.startsWith(searchInput);
     };
   }
 
@@ -71,8 +74,7 @@ const template = `
 
               <div class="row">
                 <div ng-repeat="cocktail in $ctrl.allCocktails | filter: $ctrl.myFilter($ctrl.searchInput) " class="col-xs-6">
-                  <p>{{cocktail}}</p>
-                  <!--<cocktail-card cocktail="cocktail"></cocktail-card>-->
+                  <cocktail-card cocktail="cocktail"></cocktail-card>
                 </div>
               </div>
 `;
