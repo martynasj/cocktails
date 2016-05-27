@@ -1,0 +1,10 @@
+#tv-form {
+  .ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+  }
+  .ng-valid.ng-touched {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+  }
+}
