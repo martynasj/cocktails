@@ -5,13 +5,17 @@ import '../components/CocktailCard';
 const app = angular.module('app');
 
 
+
 function controller(apiService) {
 
   this.$onInit = function() {
   };
 
+  this.test = ['martis', 'martynas', 'domas', 'ignas'];
+
   // save 'this' reference
   const ctrl = this;
+  this.searchInput = 'ma';
 
   ctrl.dataLoading = false;
   ctrl.error = false;
@@ -27,6 +31,24 @@ function controller(apiService) {
   // };
 
   ctrl.allCocktails = cocktails;
+  console.log(cocktails);
+
+
+  /**
+   * Custom function to filter cocktail object by the name property
+   * @param searchCriteria
+   */
+  this.myFilter = function(searchCriteria) {
+
+    console.log(searchCriteria);
+    const searchInput = searchCriteria ? searchCriteria.toLowerCase() : null;
+
+    // this function is run once with every object of array to be filtered
+    return function (cocktail) {
+      const name = cocktail.name.toLowerCase();
+      return searchInput === name;
+    };
+  }
 
 }
 
@@ -39,15 +61,18 @@ const template = `
                 <div class="col-xs-12">
                   <form>
                     <div class="input-field">
-                      <input id="search" type="search" required placeholder="Filter...">
+                      <input id="search" type="search" ng-model="$ctrl.searchInput" required placeholder="Filter...">
                     </div>
                   </form>
                 </div>
               </div>
+              
+              <!--<div ng-repeat="vardas in $ctrl.test | filter:$ctrl.searchInput">{{vardas}}</div>-->
 
               <div class="row">
-                <div ng-repeat="cocktail in $ctrl.allCocktails track by $index" class="col-xs-6">
-                  <cocktail-card cocktail="cocktail"></cocktail-card>
+                <div ng-repeat="cocktail in $ctrl.allCocktails | filter: $ctrl.myFilter($ctrl.searchInput) " class="col-xs-6">
+                  <p>{{cocktail}}</p>
+                  <!--<cocktail-card cocktail="cocktail"></cocktail-card>-->
                 </div>
               </div>
 `;

@@ -2,7 +2,7 @@ const cocktailsUrl = '/assets/img/cocktails/';
 
 const negroni = {
 
-  names: ['Negroni'],
+  name: 'Negroni',
   images: [`${cocktailsUrl}negroni_1.jpg`, `${cocktailsUrl}negroni_2.jpg`],
 
   ingredients: {
@@ -41,6 +41,46 @@ const negroni = {
 
 };
 
+const cosmopolitan = {
+
+  name: 'Cosmopolitan',
+  images: [`${cocktailsUrl}cosmopolitan_1.jpg`, `${cocktailsUrl}cosmopolitan_2.jpg`],
+
+  ingredients: {
+    alcohol: [
+      // amounts in cl
+      { name: 'Vodka Citron', amount: 4 },
+      { name: 'Cointreau', amount: 1.5 }
+    ],
+    other: [
+      { name: 'Lime Juice', amount: 1.5 },
+      { name: 'Cranberry Juice', amount: 3 }
+    ],
+    garnish: [
+      'Lemon slice or lime wedge'
+    ]
+  },
+
+  preparation: [
+    'Add all ingredients into cocktail shaker filled with ice',
+    'Shake well and double strain into large cocktail glass',
+    'Garnish'
+  ],
+
+  description: {
+
+    history: `The International Bartenders Association recipe is based on vodka citron, lemon-flavored vodka.[1] The cosmopolitan is a relative of cranberry coolers like the Cape Codder.[2] Though often presented far differently, the cosmopolitan also bears a likeness in composition to the kamikaze cocktail.
+The origin of the cosmopolitan is disputed. It is widely believed that the drink was created independently by different bartenders since the 1970s.[3] Generally, people have recognized that John Caine brought the drink to San Francisco around 1987 from Ohio.[4][5] The same year in Manhattan, the internationally recognized version of the cocktail was created by Toby Cecchini, based on a poorly described version of Cheryl Cook's creation.[6] According to Sally Ann Berk and Bob Sennett, the cosmopolitan appears in literature as early as 1993 and derives from New York City.[7][8][9][10]`,
+
+  },
+
+  variations: [
+    { name: 'Cosmocello', briefDescription: 'Substitutes limoncello for the lime juice.' }
+  ]
+
+};
+
 export const cocktails = [
-  negroni, negroni
+  negroni,
+  cosmopolitan
 ];
