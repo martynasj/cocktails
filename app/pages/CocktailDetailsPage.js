@@ -1,9 +1,9 @@
 import angular from 'angular';
-import { getCocktailById } from '../services/cocktailService';
+import '../services/cocktailService';
 
 const app = angular.module('app');
 
-const controller = function (cocktailApi) {
+const controller = function(cocktailApi) {
   const ctrl = this;
 
   ctrl.cocktail = null;
@@ -11,9 +11,9 @@ const controller = function (cocktailApi) {
   this.$routerOnActivate = function(next, previous) {
     let id = next.params.id;
 
-    cocktailApi.getCocktailById(id).then( function(successResponse) {
+    cocktailApi.getCocktailById(id).then( successResponse => {
       ctrl.cocktail = successResponse;
-    }, function(errorResponse) {
+    }, errorResponse => {
       console.log(errorResponse);
       ctrl.cocktail = errorResponse;
     });

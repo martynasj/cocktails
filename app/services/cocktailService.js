@@ -3,23 +3,20 @@ import { cocktails }  from '../data/data';
 
 const app = angular.module('app');
 
-app.service('cocktailApi', function($q) {
+app.service('cocktailApi', function($q, $http) {
 
   this.getCocktailById = (id) => {
-    return $q( (resolve, reject) => {
+    return $q((resolve, reject) => {
 
-      setTimeout( () => {
-        for (let cocktail of cocktails) {
-          if (cocktail._id === id) {
-            resolve(cocktail);
-          }
-        }
-
-        reject({error: 'cocktail not found'})
-      }, 500);
-
+      $http.get(`http://localhost:3001/api/cocktails/${id}`).then(successResponse => {
+        resolve(successResponse.data);
+      }, errResponse => {
+        reject(errResponse);
+      });
 
     });
   }
+
+
 
 });

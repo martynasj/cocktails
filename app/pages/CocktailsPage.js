@@ -6,10 +6,7 @@ const app = angular.module('app');
 
 
 
-function controller(apiService) {
-
-  this.$onInit = function() {
-  };
+function controller(cocktailApi) {
 
   // save 'this' reference
   const ctrl = this;
@@ -18,15 +15,15 @@ function controller(apiService) {
   ctrl.dataLoading = false;
   ctrl.error = false;
 
-  // this.$onInit = function() {
-  //   apiService.getAllSeries().then(function success(result) {
-  //     ctrl.allSeries = result;
-  //     ctrl.dataLoading = false;
-  //   }, function error(reason) {
-  //     ctrl.error = true;
-  //     ctrl.dataLoading = false;
-  //   });
-  // };
+   //this.$onInit = function() {
+   //  cocktailApi.getAllSeries().then(function success(result) {
+   //    ctrl.allSeries = result;
+   //    ctrl.dataLoading = false;
+   //  }, function error(reason) {
+   //    ctrl.error = true;
+   //    ctrl.dataLoading = false;
+   //  });
+   //};
 
   ctrl.allCocktails = cocktails;
   console.log(cocktails);

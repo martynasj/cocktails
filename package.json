@@ -4,7 +4,9 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "start": "node server"
+    "start": "node run api-server && node run client",
+    "client": "node server",
+    "api-server": "node ./server/index.js"
   },
   "author": "Martynas Jankauskas",
   "license": "ISC",

@@ -1,18 +1,18 @@
 export const glasses = {
 
   martini: 'Martini glass',
-  rocks: 'Old Fashioned, rocks, low ball',
-  margarita: 'Margarita Glass',
+  rocks: 'Old Fashioned',
+  margarita: 'Margarita glass',
   collins: 'Collins',
   highBall: 'High Ball',
-  whiteWine: 'White Wine Glass',
-  redWine: 'Red Wine Glass',
+  whiteWine: 'White Wine glass',
+  redWine: 'Red Wine glass',
   champagne: 'Champagne glass',
-  irish: 'Irish Coffee Mug',
+  irish: 'Irish Coffee',
   coupe: 'Coupe',
   shot: 'Shot glass',
-  brandy: 'Brandy glass / snifter',
-  beer: 'Beer glass / mug',
-  cocktail: 'Cocktail / Pina Colada glass'
+  brandy: 'Brandy glass',
+  beer: 'Beer glass',
+  cocktail: 'Cocktail glass'
 
 };

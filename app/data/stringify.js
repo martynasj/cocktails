@@ -1,18 +1,7 @@
-import uuid from 'uuid';
-import { glasses } from './glass_data';
-import { brandedDrinks, types } from './alcohol_data';
-
 const cocktailsUrl = '/assets/img/cocktails/';
 
-function create(cocktail) {
 
-  return Object.assign({
-    _id: uuid.v4()
-  }, cocktail);
-
-}
-
-const negroni = create({
+const negroni = {
 
   _id: '01234negroni01234',
 
@@ -42,7 +31,7 @@ const negroni = create({
       'Stir for 1 min',
       'Garnish with orange peel'
     ],
-    glassTypes: [ glasses.rocks ]
+    glassTypes: [ 'Rocks' ]
   },
 
   description: {
@@ -59,9 +48,9 @@ const negroni = create({
     { name: 'Boulevardier', briefDescription: ' A similar cocktail that uses whiskey in place of gin.' }
   ]
 
-});
+};
 
-const cosmopolitan = create({
+const cosmopolitan = {
 
   name: 'Cosmopolitan',
   images: [`${cocktailsUrl}cosmopolitan_1.jpg`, `${cocktailsUrl}cosmopolitan_2.jpg`],
@@ -81,11 +70,13 @@ const cosmopolitan = create({
     ]
   },
 
-  preparation: [
+  preparation: {
+    glassTypes: ['Martini'],
+    steps: [
     'Add all ingredients into cocktail shaker filled with ice',
     'Shake well and double strain into large cocktail glass',
-    'Garnish'
-  ],
+    'Garnish']
+  },
 
   description: {
 
@@ -98,12 +89,7 @@ The origin of the cosmopolitan is disputed. It is widely believed that the drink
     { name: 'Cosmocello', briefDescription: 'Substitutes limoncello for the lime juice.' }
   ]
 
-});
+};
 
-JSON.stringify(negroni);
-JSON.stringify(cosmopolitan);
-
-export const cocktails = [
-  negroni,
-  cosmopolitan
-];
+console.log(JSON.stringify(negroni));
+console.log(JSON.stringify(cosmopolitan));

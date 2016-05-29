@@ -1,0 +1,22 @@
+{
+  "name": "api-server-test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon --use_strict index.js",
+    "dbOperations": "node --use_strict ./server/myScript"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "connect-slow": "^0.2.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "mongodb": "^2.1.16",
+    "mongojs": "^2.3.0",
+    "mongoose": "^4.4.11",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {}
+}
