@@ -1,5 +1,5 @@
 import angular from 'angular';
-import { cocktails } from '../data';
+import { cocktails } from '../data/data';
 import '../components/CocktailCard';
 
 const app = angular.module('app');
@@ -11,11 +11,9 @@ function controller(apiService) {
   this.$onInit = function() {
   };
 
-  this.test = ['martis', 'martynas', 'domas', 'ignas'];
-
   // save 'this' reference
   const ctrl = this;
-  this.searchInput = 'ma';
+  this.searchInput = '';
 
   ctrl.dataLoading = false;
   ctrl.error = false;
@@ -57,26 +55,25 @@ function controller(apiService) {
 
 const template = `
 
-              <div ng-if="$ctrl.dataLoading">Loading...</div>
-              <div ng-if="$ctrl.error">No connection to the server</div>
+    <div ng-if="$ctrl.dataLoading">Loading...</div>
+    <div ng-if="$ctrl.error">No connection to the server</div>
 
-              <div class="row">
-                <div class="col-xs-12">
-                  <form>
-                    <div class="input-field">
-                      <input id="search" type="search" ng-model="$ctrl.searchInput" required placeholder="Filter...">
-                    </div>
-                  </form>
-                </div>
-              </div>
-              
-              <!--<div ng-repeat="vardas in $ctrl.test | filter:$ctrl.searchInput">{{vardas}}</div>-->
+    <div class="row">
+      <div class="col-xs-12">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" ng-model="$ctrl.searchInput" required placeholder="Filter...">
+          </div>
+        </form>
+      </div>
+    </div>
 
-              <div class="row">
-                <div ng-repeat="cocktail in $ctrl.allCocktails | filter: $ctrl.myFilter($ctrl.searchInput) " class="col-xs-6">
-                  <cocktail-card cocktail="cocktail"></cocktail-card>
-                </div>
-              </div>
+    <div class="row">
+      <div ng-repeat="cocktail in $ctrl.allCocktails | filter: $ctrl.myFilter($ctrl.searchInput) " class="col-xs-6">
+        <cocktail-card cocktail="cocktail"></cocktail-card>
+      </div>
+    </div>
+
 `;
 
 
@@ -86,11 +83,6 @@ export default app.component('cocktailsPage', {
   controller,
   bindings: {
 
-  },
-  $routeConfig: [
-    {path: '/', name: 'CocktailsPage', component: 'cocktailsPage', useAsDefault: true},
-    {path: '/:id', name: 'Cocktail', component: 'cocktail'},
-    {path: '/add', name: 'AddCoctkail', component: 'addCocktail'}
-  ]
+  }
 
 })

@@ -1,5 +1,6 @@
 import angular from 'angular';
 import './CocktailsPage';
+import './CocktailDetailsPage';
 
 const app = angular.module('app');
 
@@ -23,7 +24,7 @@ export default app.component('cocktailsLayout', {
   controller,
   $routeConfig: [
     {path: '/', name: 'CocktailsPage', component: 'cocktailsPage', useAsDefault: true},
-    {path: '/:id', name: 'Cocktail', component: 'cocktail'},
+    {path: '/:id', name: 'CocktailDetailsPage', component: 'cocktailDetailsPage'},
     {path: '/add', name: 'AddCoctkail', component: 'addCocktail'}
   ]
 });
