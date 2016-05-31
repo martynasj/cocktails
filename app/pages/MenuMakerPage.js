@@ -6,11 +6,13 @@ const app = angular.module('app');
 
 function controller(cocktailApi) {
 
-  this.itemsOnMenu = [];
+  this.menu = {
+    menuHeading: "Tonight's Selection",
+    itemsOnMenu: []
+  };
 
   this.onItemClick = (item) => {
-    this.itemsOnMenu.push(item);
-    console.log(this.itemsOnMenu);
+    this.menu.itemsOnMenu.push(item);
   }
 
   this.$onInit = () => {
@@ -23,17 +25,15 @@ function controller(cocktailApi) {
 }
 
 const template = `
-        <div class="container-fluid">
+        <div class="container-fluid" id="menu-maker-page">
 
           <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-12">
               <cocktail-list items="$ctrl.allCocktails" on-item-click="$ctrl.onItemClick"></cocktail-list>
             </div>
-
-            <div class="col-xs-7 col-xs-offset-1">
-              <menu-canvas cocktails="$ctrl.itemsOnMenu"></menu-canvas>
-            </div>
           </div>
+
+          <menu-canvas menu="$ctrl.menu"></menu-canvas>
 
         </div>
 `;

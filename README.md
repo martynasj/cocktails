@@ -10,5 +10,4 @@ I am still experimenting with [component](https://docs.angularjs.org/guide/compo
 tried using [component router](https://docs.angularjs.org/guide/component-router).
 
 ## Run
-1. `npm install`
-2. `npm start`
+Project currently reads the data from the local mongodb.

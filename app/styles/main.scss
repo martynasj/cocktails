@@ -1,17 +1,7 @@
-@import "colors";
-@import 'tv-form';
+@import "normalize";
+@import "reset";
+@import "menu-canvas";
 
-#top-bar {
-}
-
-#movies-page {
-
-  .sidebar {
-    padding: 10px;
-    background-color: $primary-color;
-  }
-
-}
-
-#tv-card {
+body {
+  background-color: #f7f7f7;
 }

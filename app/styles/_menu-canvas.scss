@@ -1,0 +1,43 @@
+
+#menu-canvas {
+
+  margin: 0 auto 20px auto;
+  width: 21cm;
+  height: 29.7cm;
+  background-color: white;
+  padding: 1.5cm;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);;
+
+  #menu-heading {
+    font-family: Antipasto;
+    font-size: 36px;
+  }
+
+  #menu-item-area {
+    margin-top: 100px;
+  }
+
+  #menu-item {
+
+    position: relative;
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
+
+    #cocktail-image {
+      width: 200px;
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+  }
+
+  #menu-item-toolbar {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+  }
+
+}
