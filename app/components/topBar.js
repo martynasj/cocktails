@@ -19,7 +19,7 @@ const template = `
     
     <ul class="nav navbar-nav">
       <li><a ng-link="['Cocktails']">Cocktails</a></li>
-      <!--<li><a ng-link="['MenuMaker']">Menu Maker</a></li>-->
+      <li><a ng-link="['MenuMaker']">Menu Maker</a></li>
     </ul>
     
   </div>

@@ -24,7 +24,6 @@ export default app.component('cocktailsLayout', {
   controller,
   $routeConfig: [
     {path: '/', name: 'CocktailsPage', component: 'cocktailsPage', useAsDefault: true},
-    {path: '/:id', name: 'CocktailDetailsPage', component: 'cocktailDetailsPage'},
     {path: '/add', name: 'AddCoctkail', component: 'addCocktail'}
   ]
 });

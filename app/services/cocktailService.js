@@ -15,6 +15,18 @@ app.service('cocktailApi', function($q, $http) {
       });
 
     });
+  };
+
+  this.getAll = () => {
+    return $q((resolve, reject) => {
+
+      $http.get(`http://localhost:3001/api/cocktails`).then(successResponse => {
+        resolve(successResponse);
+      }, errResponse => {
+        reject(errResponse);
+      });
+
+    });
   }
 
 

@@ -35,13 +35,23 @@ const template = `
       <div class="col-xs-12">
         <h1>{{ $ctrl.cocktail.name }}</h1>
         <p>{{ $ctrl.cocktail.description.brief }}</p>
+
         <h2>Ingredients</h2>
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="ingredient in $ctrl.cocktail.ingredients.alcohol">
             <p>{{ ingredient.name }} - {{ ingredient.amount }} cl</p>
           </li>
         </ul>
+
         <h2>Preparation</h2>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="step in $ctrl.cocktail.preparation.steps">
+            <p>{{ step }}</p>
+          </li>
+        </ul>
+
+
+
         <h3>Variations</h3>
       </div>
     </div>
