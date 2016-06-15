@@ -37,7 +37,11 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       { from: './assets', to: '/assets' }
-    ])
+    ]),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      _: 'lodash'
+    })
   ]
 
 };

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const types = {
   cachaca: 'Cachaça',
   gin: 'Gin',
@@ -26,6 +28,14 @@ export const brandedDrinks = [
   { _id: '02', name: 'Campari', type: types.bitters, alcoholVolume: 44, country: 'Italy', flavour: ['bitter', 'spicy', 'sweet'], color: 'Red' },
   { _id: '03', name: 'Carpano Antica Formula', type: types.vermouth, country: 'Italy' }
 ];
+
+export const allDrinks = _.flatMap(types, (value, key) => {
+  if (_.isObject(value)) {
+    return _.valuesIn(value, (value2, key2) => { return value2 })
+  }
+  return value;
+});
+console.log(allDrinks);
 
 
 

@@ -1,12 +1,12 @@
-export const glasses = {
+export default {
 
   martini: 'Martini glass',
   rocks: 'Old Fashioned',
   margarita: 'Margarita glass',
   collins: 'Collins',
-  highBall: 'High Ball',
-  whiteWine: 'White Wine glass',
-  redWine: 'Red Wine glass',
+  highball: 'High Ball',
+  whitewine: 'White Wine glass',
+  redwine: 'Red Wine glass',
   champagne: 'Champagne glass',
   irish: 'Irish Coffee',
   coupe: 'Coupe',

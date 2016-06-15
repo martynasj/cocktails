@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import { glasses } from './glass_data';
+import glasses from './glass_data';
 import { brandedDrinks, types } from './alcohol_data';
 
 const cocktailsUrl = '/assets/img/cocktails/';

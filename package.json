@@ -4,7 +4,7 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "start": "node run api-server && node run client",
+    "start": "npm run api-server && npm run client",
     "client": "node server",
     "api-server": "node ./server/index.js"
   },
@@ -16,6 +16,7 @@
     "angular-ui-router": "^0.2.18",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
+    "lodash": "^4.13.1",
     "ngcomponentrouter": "^2.1.0"
   },
   "devDependencies": {

@@ -21,6 +21,10 @@ const template = `
       <li><a ng-link="['Cocktails']">Cocktails</a></li>
       <li><a ng-link="['MenuMaker']">Menu Maker</a></li>
     </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a ng-link="['AddCocktail']">Add cocktail</a></li>
+    </ul>
     
   </div>
 </nav>
