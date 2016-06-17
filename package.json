@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run api-server && npm run client",
     "client": "node server",
-    "api-server": "node ./server/index.js"
+    "server": "sudo nodemon --use_strict ./server/index.js",
+    "db": "mongod"
   },
   "author": "Martynas Jankauskas",
   "license": "ISC",

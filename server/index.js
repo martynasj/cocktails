@@ -15,8 +15,8 @@ var app = express();
 // Serve static images from this directory
 app.use(express.static('./public'));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
 
 // For simulating slow connection
 app.use(slow({

@@ -5,8 +5,13 @@ const cocktails = db.collection('cocktails');
 
 class CocktailsController {
 
-  static getAll(callback) {
-    cocktails.find((err, docs) => {
+  static getAll(ingredients, callback) {
+
+    const query = {
+      'ingredients.alcohol': { $elemMatch: { name: ingredients } }
+    }
+
+    cocktails.find(query, (err, docs) => {
       if (err) {
         throw new Error(err);
       } else {
@@ -22,6 +27,13 @@ class CocktailsController {
       } else {
         callback(docs);
       }
+    })
+  }
+
+  static addCocktail(cocktail, callback) {
+    cocktails.insert(cocktail, (err, documents) => {
+      if (err) return callback(err);
+      callback(documents._id);
     })
   }
 
