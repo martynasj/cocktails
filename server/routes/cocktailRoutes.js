@@ -19,6 +19,8 @@ router.get('/cocktails', function(req, res, next) {
 
 });
 
+// Route is used for uploading just images to the server
+// Response is [imageUrl]
 router.post('/cocktails/images', upload.any(), function(req, res, next) {
   const images = req.files;
   const urls = [];
@@ -27,6 +29,12 @@ router.post('/cocktails/images', upload.any(), function(req, res, next) {
     urls.push(url)
   }
   res.json( {urls} );
+});
+
+router.post('/cocktails', (req, res) => {
+  CocktailsController.addCocktail(req.body, result => {
+    res.json(result)
+  })
 });
 
 router.get('/cocktails/:id', function(req, res, next) {

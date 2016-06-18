@@ -29,33 +29,26 @@ app.service('cocktailApi', function($q, $http) {
     });
   };
 
-  this.addCocktail = (cocktailData, files) => {
+  this.addCocktail = (cocktailData) => {
     return $q((resolve, reject) => {
 
-      const formData = new FormData();
-
-      if (files) {
-        for (let file of files) {
-          formData.append('cocktail-images', file)
-        }
-      }
-
-      formData.append('data', cocktailData);
-
-      $http({
+      const config = {
         method: 'POST',
-        url: `http://localhost:3001/api/cocktails`,
-        headers: {'Content-Type': undefined },  // if set to multiform, fails...
-        data: formData
-      }).then(successResponse => {
+        url: 'http://localhost:3001/api/cocktails',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: cocktailData
+      };
+
+      $http(config).then(successResponse => {
         resolve(successResponse);
       }, errResponse => {
         reject(errResponse);
       });
 
-    });
+    })
+
   }
-
-
 
 });

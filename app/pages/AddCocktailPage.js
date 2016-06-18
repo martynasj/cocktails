@@ -89,7 +89,7 @@ const controller = function (cocktailApi, Upload) {
   };
 
   this.submitForm = () => {
-    cocktailApi.addCocktail(this.cocktail, this.fileInput).then( successResponse => {
+    cocktailApi.addCocktail(this.cocktail).then( successResponse => {
       console.log(successResponse);
     }, errResponse => console.log(errResponse) )
   };
