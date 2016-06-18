@@ -1,10 +1,16 @@
 import './app';
-import './styles/main.scss';
-import './pages/MainLayout';
+
+// Load services
+import './services/cocktailApi';
 
 // Load directives
 import './directives/FileModel';
 
-// Load services
-import './services/apiService';
+// Load css
+import './styles/main.scss';
+
+// Load application
+import './pages/MainLayout';
+
+
 

@@ -5,19 +5,16 @@ const app = angular.module('app');
 
 function controller(cocktailApi) {
 
-  // save 'this' reference
-  const ctrl = this;
+  this.dataLoading = false;
+  this.error = false;
 
-  ctrl.dataLoading = false;
-  ctrl.error = false;
-
-  this.$onInit = function () {
+  this.$onInit = () => {
     cocktailApi.getAll().then(successResponse => {
-      ctrl.allCocktails = successResponse.data;
-      ctrl.dataLoading = false;
+      this.allCocktails = successResponse.data;
+      this.dataLoading = false;
     }, errResponse => {
-      ctrl.error = true;
-      ctrl.dataLoading = false;
+      this.error = true;
+      this.dataLoading = false;
     });
   };
 
@@ -29,8 +26,8 @@ const template = `
     <div ng-if="$ctrl.error">No connection to the server</div>
 
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-
+      <div class="col-xs-3">
+        <cocktail-card cocktail=""></cocktail-card>
       </div>
     </div>
 

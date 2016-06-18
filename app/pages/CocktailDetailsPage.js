@@ -1,5 +1,4 @@
 import angular from 'angular';
-import '../services/cocktailService';
 
 const app = angular.module('app');
 

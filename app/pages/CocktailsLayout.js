@@ -4,7 +4,7 @@ import './CocktailDetailsPage';
 
 const app = angular.module('app');
 
-function controller($http, apiService) {
+function controller() {
 
 }
 
