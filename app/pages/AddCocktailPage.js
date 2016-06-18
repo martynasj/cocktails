@@ -90,14 +90,15 @@ const controller = function (cocktailApi, Upload) {
 
   this.submitForm = () => {
     cocktailApi.addCocktail(this.cocktail).then( successResponse => {
-      console.log(successResponse);
+      const id = successResponse.data._id;
+      this.$router.navigate(['CocktailDetailsPage', { id } ])
     }, errResponse => console.log(errResponse) )
   };
 
 };
 
 const template = `
-  <div>
+  <div class="container">
 
     <form>
 
@@ -170,7 +171,9 @@ const template = `
 const AddCocktailPage = app.component('addCocktail', {
   controller,
   template,
-  bindings: {}
+  bindings: {
+    $router: '<'
+  }
 });
 
 export default AddCocktailPage;

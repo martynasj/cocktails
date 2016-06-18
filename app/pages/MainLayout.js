@@ -1,9 +1,12 @@
 import angular from 'angular';
 import './../components/topBar.js';
+
+// Route components
 import './homePage';
-import './CocktailsLayout';
 import '../pages/MenuMakerPage';
 import '../pages/AddCocktailPage';
+import '../pages/CocktailsPage';
+import '../pages/CocktailDetailsPage';
 
 const app = angular.module('app');
 
@@ -21,7 +24,7 @@ const MainLayout = app.component('mainLayout', {
   $routeConfig: [
     {path: '/', name: 'HomePage', component: 'homePage', useAsDefault: true},
 
-    {path: '/cocktails/...', name: 'Cocktails', component: 'cocktailsLayout'},
+    {path: '/cocktails/', name: 'Cocktails', component: 'cocktailsPage'},
     {path: '/cocktails/add', name: 'AddCocktail', component: 'addCocktail'},
     {path: '/cocktails/:id', name: 'CocktailDetailsPage', component: 'cocktailDetailsPage'},
 
