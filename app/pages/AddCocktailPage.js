@@ -8,9 +8,21 @@ const controller = function (cocktailApi, Upload) {
 
   this.glassTypes = glassTypes;
 
+  this.imageDivStyle = (imgUrl) => {
+    return {
+      'background-image': `url(${imgUrl})`,
+      'background-size': 'cover',
+      'background-position': 'center center',
+      'background-repeat': 'no-repeat'
+    }
+  };
+
   this.cocktail = {
     name: 'Dark & Stormy',
-    images: [],
+    images: [
+      "http://localhost:3001/images/cocktail/fb219cd0-3562-11e6-ae24-ed0001a4b9ff.jpeg",
+      "http://localhost:3001/images/cocktail/02d7f280-3563-11e6-ae24-ed0001a4b9ff.jpeg"
+    ],
     ingredients: {
       alcohol: [
         { name: 'Dark rum', amount: 6 }
@@ -100,13 +112,15 @@ const template = `
       </div>
 
       <!-- Image upload -->
-      <!--<div class="form-group">-->
-        <!--<label for="exampleInputFile">Photos</label>-->
-        <!--<input type="file" multiple file-model="$ctrl.fileInput" name="cocktail-images" id="photos">-->
-        <!--<p class="help-block">You can attach more than one picture</p>-->
-        <!--{{ $ctrl.fileModel }}-->
-      <!--</div>-->
       <button ngf-select="$ctrl.onImageSelect($files)" multiple="multiple">Select files for upload</button>
+
+      <!-- Image preview -->
+      <div class="row" ng-if="$ctrl.cocktail.images.length > 0">
+        <div class="col-xs-3" ng-repeat="image in $ctrl.cocktail.images">
+        <div class="thumbnail"><img ng-src="{{image}}"></div>
+
+        </div>
+      </div>
 
       <!-- Ingredients -->
       <h2>Ingredients</h2>
