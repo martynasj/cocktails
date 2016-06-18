@@ -4,29 +4,30 @@ import glassTypes from '../data/glass_data';
 
 const app = angular.module('app');
 
-const controller = function () {
+const controller = function (cocktailApi) {
 
   this.glassTypes = glassTypes;
 
   this.cocktail = {
-    name: 'Mojito',
+    name: 'Dark & Stormy',
     ingredients: {
       alcohol: [
-        { name: 'Vodka', amount: 4 }
+        { name: 'Dark rum', amount: 6 }
       ],
       other: [
-        { name: 'Lime', amount: 2 }
+        { name: 'Ginger beer', amount: 10 },
+        { name: 'Angostura', amount: 'dash' }
       ],
       garnish: [
-        "Orange peel"
+        "Lime wedge"
       ]
     },
     description: {
-      brief: 'Just write some interesting facts about this cocktail...'
+      brief: " In the US, the name Dark and Stormy is a trademark of Gosling Brothers Ltd of Bermuda. Gosling's claims there is only one recipe for a Dark 'N Stormy, but the NY Times reports that Gosling's has changed that recipe along with changing commercial relationships. Gosling's recipe does call for Gosling's Black Seal Rum."
     },
     glassType: 'highball',
     preparation: {
-      steps: [ 'First step', 'Second step' ]
+      steps: [ 'Fill glass with ice', 'Add dark rum', 'Top with ginger beer', 'Add a dash of angustura bitters', 'Garnish with a lime wedge' ]
     }
   };
 
@@ -49,14 +50,21 @@ const controller = function () {
       this.cocktail.ingredients.other.push({name, amount})
     }
 
-  }
+  };
 
   this.addStep = (e) => {
     if (e.which === 13) {
       this.cocktail.preparation.steps.push(this.input.step);
       this.input.step = '';
     }
-  }
+  };
+
+  this.submitForm = () => {
+    cocktailApi.addCocktail(this.cocktail, this.fileInput).then( successResponse => {
+      console.log('inserted successfully');
+      console.log(successResponse);
+    }, errResponse => console.log(errResponse) )
+  };
 
 };
 
@@ -75,10 +83,12 @@ const template = `
         <textarea maxlength="250" rows="5" class="form-control" id="description" ng-model="$ctrl.cocktail.description.brief" placeholder="Some description, max 250 characters"></textarea>
       </div>
 
+      <!-- Image upload -->
       <div class="form-group">
         <label for="exampleInputFile">Photos</label>
-        <input type="file" multiple id="photos">
+        <input type="file" multiple file-model="$ctrl.fileInput" name="cocktail-images" id="photos">
         <p class="help-block">You can attach more than one picture</p>
+        {{ $ctrl.fileModel }}
       </div>
 
       <!-- Ingredients -->
@@ -113,7 +123,7 @@ const template = `
         <input type="text" class="form-control" ng-model="$ctrl.input.step" ng-keypress="$ctrl.addStep($event)">
       </ol>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="button" ng-click="$ctrl.submitForm()" class="btn btn-default">Submit</button>
 
     </form>
 

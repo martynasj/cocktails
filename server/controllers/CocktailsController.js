@@ -5,10 +5,17 @@ const cocktails = db.collection('cocktails');
 
 class CocktailsController {
 
-  static getAll(ingredients, callback) {
+  static getAll(queryParams, callback) {
 
-    const query = {
-      'ingredients.alcohol': { $elemMatch: { name: ingredients } }
+    // default query, find all docs if no query parameters are sent
+    let query = { };
+
+    // If there are any query parameters:
+    if (queryParams) {
+      if (queryParams.hasOwnProperty('ingredients')) {
+        const ingredients = queryParams.ingredients;
+        query = { 'ingredients.alcohol.name': { $all: ['Gin', 'Campari'] } }
+      }
     }
 
     cocktails.find(query, (err, docs) => {

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/multer');
 const CocktailsController = require('../controllers/CocktailsController');
+const uuid = require('uuid');
+
+const upload = require('../config/multer');
 
 
 /**
@@ -10,26 +12,23 @@ const CocktailsController = require('../controllers/CocktailsController');
  */
 router.get('/cocktails', function(req, res, next) {
 
-  const ingredients = [];
-  //if (req.query.ingredients) {
-  //  if (req.query.ingredients)
-  //}
-
-  CocktailsController.getAll(ingredients, function(result) {
+  CocktailsController.getAll(req.query, function(result) {
     res.json(result);
   });
 
 });
 
-router.post('/cocktails', function(req, res, next) {
-  CocktailsController.addCocktail( req.body, (result) => {
-    res.json(result);
-  });
-});
-
-router.post('/image', upload.array('cocktail-images'), (req, res, next) => {
-  console.log(req.files);
-  res.json(Object.assign({status: 'all good'}, req.files, req.body));
+router.post('/cocktails', upload.array('cocktail-images'), function(req, res, next) {
+  const files = req.files;
+  const cocktail = req.body;
+  console.log(cocktail);
+  console.log(files);
+  for (file of files) {
+    //cocktail.images.push(file.des)
+  }
+  //CocktailsController.addCocktail( cocktail, (result) => {
+  //  res.json(result);
+  //});
 });
 
 router.get('/cocktails/:id', function(req, res, next) {

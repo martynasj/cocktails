@@ -1,13 +1,13 @@
 const multer = require('multer');
+const uuid = require('uuid');
 
 // Configure storage dir and file naming
 const storage = multer.diskStorage({
-  destination: "./statics/images/cocktail",
+  destination: "./static/images/cocktail",
 
   filename: function (req, file, cb) {
-    const extension = ".jpg";
-    const fileName = file.originalname + extension;
-    console.log(fileName);
+    const extension = file.mimetype.split('/')[1];
+    const fileName = `${uuid.v1()}.${extension}`;
     cb(null, fileName)
   }
 });

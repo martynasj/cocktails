@@ -35,7 +35,6 @@ export const allDrinks = _.flatMap(types, (value, key) => {
   }
   return value;
 });
-console.log(allDrinks);
 
 
 
