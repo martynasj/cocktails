@@ -33,15 +33,6 @@ app.service('cocktailApi', function($q, $http) {
     return $q((resolve, reject) => {
 
       const formData = new FormData();
-      //if (files) {
-      //  if (_.isArray(files)) {
-      //    for (file of files) {
-      //      formData.append('cocktail-images', file);
-      //    }
-      //  } else {
-      //    formData.append('cocktail-images', files);
-      //  }
-      //}
 
       if (files) {
         for (let file of files) {
@@ -49,11 +40,7 @@ app.service('cocktailApi', function($q, $http) {
         }
       }
 
-      //formData.append('cocktail-images', files[0]);
-
-      _.forIn(cocktailData, (value, key) => {
-        formData.append(key, value);
-      });
+      formData.append('data', cocktailData);
 
       $http({
         method: 'POST',

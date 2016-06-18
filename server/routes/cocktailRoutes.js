@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CocktailsController = require('../controllers/CocktailsController');
 const uuid = require('uuid');
+const config = require('../serverConfig');
 
 const upload = require('../config/multer');
 
@@ -18,17 +19,14 @@ router.get('/cocktails', function(req, res, next) {
 
 });
 
-router.post('/cocktails', upload.array('cocktail-images'), function(req, res, next) {
-  const files = req.files;
-  const cocktail = req.body;
-  console.log(cocktail);
-  console.log(files);
-  for (file of files) {
-    //cocktail.images.push(file.des)
+router.post('/cocktails/images', upload.any(), function(req, res, next) {
+  const images = req.files;
+  const urls = [];
+  for (let image of images) {
+    const url = config.imageStorageUrl + image.path.replace(/static/, '');
+    urls.push(url)
   }
-  //CocktailsController.addCocktail( cocktail, (result) => {
-  //  res.json(result);
-  //});
+  res.json( {urls} );
 });
 
 router.get('/cocktails/:id', function(req, res, next) {

@@ -4,12 +4,13 @@ import glassTypes from '../data/glass_data';
 
 const app = angular.module('app');
 
-const controller = function (cocktailApi) {
+const controller = function (cocktailApi, Upload) {
 
   this.glassTypes = glassTypes;
 
   this.cocktail = {
     name: 'Dark & Stormy',
+    images: [],
     ingredients: {
       alcohol: [
         { name: 'Dark rum', amount: 6 }
@@ -59,9 +60,24 @@ const controller = function (cocktailApi) {
     }
   };
 
+  this.onImageSelect = (files) => {
+    if (files && files.length) {
+      for (let file of files) {
+        // Executes once for every file
+        Upload.upload({
+          url: 'http://localhost:3001/api/cocktails/images',
+          data: { 'cocktail-image': file }
+        }).then( res => {
+          this.cocktail.images.push(res.data.urls[0]);
+        }, err => { console.log(err) }, evt => {
+          console.log(evt);
+        })
+      }
+    }
+  };
+
   this.submitForm = () => {
     cocktailApi.addCocktail(this.cocktail, this.fileInput).then( successResponse => {
-      console.log('inserted successfully');
       console.log(successResponse);
     }, errResponse => console.log(errResponse) )
   };
@@ -84,12 +100,13 @@ const template = `
       </div>
 
       <!-- Image upload -->
-      <div class="form-group">
-        <label for="exampleInputFile">Photos</label>
-        <input type="file" multiple file-model="$ctrl.fileInput" name="cocktail-images" id="photos">
-        <p class="help-block">You can attach more than one picture</p>
-        {{ $ctrl.fileModel }}
-      </div>
+      <!--<div class="form-group">-->
+        <!--<label for="exampleInputFile">Photos</label>-->
+        <!--<input type="file" multiple file-model="$ctrl.fileInput" name="cocktail-images" id="photos">-->
+        <!--<p class="help-block">You can attach more than one picture</p>-->
+        <!--{{ $ctrl.fileModel }}-->
+      <!--</div>-->
+      <button ngf-select="$ctrl.onImageSelect($files)" multiple="multiple">Select files for upload</button>
 
       <!-- Ingredients -->
       <h2>Ingredients</h2>

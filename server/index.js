@@ -2,6 +2,9 @@ const http = require('http');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+const cors = require('cors');
+
+const config = require('./serverConfig');
 const slow = require('connect-slow');
 
 /**
@@ -13,7 +16,7 @@ const cocktailRoutes = require('./routes/cocktailRoutes');
 var app = express();
 
 // Serve static images from this directory
-app.use(express.static('./public'));
+app.use(express.static('./static'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,16 +26,12 @@ app.use(slow({
   delay: 10
 }));
 
+// To allow cors
+app.use(cors());
+
 /**
  *  Routes
  * */
-
-// CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // Log every requests url
 app.use(function(req, res, next) {
@@ -63,11 +62,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-/**
- * Get port from environment and store in Express.
- */
-
-const port = 3001;
+const port = config.port;
 app.set('port', port);
 
 const server = http.createServer(app);

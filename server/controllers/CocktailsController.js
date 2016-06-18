@@ -1,5 +1,6 @@
 const mongojs = require('mongojs');
 
+const config = require('../serverConfig');
 const db = require('../db');
 const cocktails = db.collection('cocktails');
 
@@ -37,7 +38,21 @@ class CocktailsController {
     })
   }
 
-  static addCocktail(cocktail, callback) {
+  static addCocktail(cocktailData, images, callback) {
+
+    const imageObjects = [];
+    if (images.count != 0) {
+      for (let image of images) {
+        const { encoding, mimetype, filename, size, path } = image;
+        const dateModified = new Date();
+        const imageObject = { encoding, mimetype, filename, size, url, dateModified };
+        imageObjects.push(imageObject);
+      }
+    }
+
+    const cocktail = Object.assign(cocktailData, { images: imageObjects });
+    console.log(cocktail);
+
     cocktails.insert(cocktail, (err, documents) => {
       if (err) return callback(err);
       callback(documents._id);
