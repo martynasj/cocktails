@@ -7,6 +7,8 @@ const cors = require('cors');
 const config = require('./serverConfig');
 const slow = require('connect-slow');
 
+require('./mongooseConfig');
+
 /**
  *  My imports.
  * */
