@@ -1,7 +1,7 @@
 import angular from 'angular';
 import '../components/CocktailCard';
 import { filterByProperty } from '../services/customFilters';
-import { allSuggestions } from '../data/alcohol_data';
+import { allSuggestions, allDrinks, otherIngredients } from '../data/alcohol_data';
 
 const app = angular.module('app');
 
@@ -9,7 +9,7 @@ function controller(cocktailApi) {
 
   this.filter = filterByProperty;
   this.searchInput = '';
-  this.tags = [ ];
+  this.queryTags = [];
   this.filterQuery = '';
 
   this.dataLoading = false;
@@ -31,19 +31,36 @@ function controller(cocktailApi) {
       return value.includes(query);
     });
     return matchedTags;
-  }
+  };
+
+  this.tagClass = (tag) => {
+    if (_.includes(allDrinks, tag.text)) return 'alcohol';
+    return 'other'
+  };
+
+  this.onTagRemoved = (tag) => {
+    _.remove(this.queryTags, (value) => value.text === tag.text );
+    this.onTagsChanged();
+  };
+
+  this.onTagAdded = (tag) => {
+    const type = _.includes(allDrinks, tag.text) ? 'alcohol' : 'other';
+    this.queryTags.push({ text: tag.text, type });
+    this.onTagsChanged();
+  };
 
   this.onTagsChanged = () => {
     //console.log(...this.tags);
     //this.filterQuery = $.param(_.flatten(this.tags));
     this.filterQuery = '';
-    if (this.tags.length > 0) {
+    if (this.queryTags.length > 0) {
       this.filterQuery = '?';
-      _.forEach(this.tags, (value, index) => {
+      _.forEach(this.queryTags, (value, index) => {
         if (index != 0) {
           this.filterQuery += '&';
         }
-        const query = `ingredients=${value.text}`;
+        const type = value.type;
+        const query = `${type}=${value.text}`;
         this.filterQuery += query;
       });
     }
@@ -61,7 +78,11 @@ const template = `
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <tags-input ng-model="$ctrl.tags" on-tag-added="$ctrl.onTagsChanged()" on-tag-removed="$ctrl.onTagsChanged()" placeholder="Filter by ingredients...">
+            <tags-input ng-model="$ctrl.tags"
+            on-tag-added="$ctrl.onTagAdded($tag)"
+            on-tag-removed="$ctrl.onTagRemoved($tag)"
+            tag-class="$ctrl.tagClass($tag)"
+            placeholder="Filter by ingredients...">
               <auto-complete source="$ctrl.loadTagSuggestions($query)" min-length="1"></auto-complete>
             </tags-input>
           </div>

@@ -4,3 +4,22 @@
 
 .cocktail-card:hover {
 }
+
+tags-input {
+  // specific selector overrides imported style from the library
+  .tags {
+    .tag-item {
+      border: none;
+    }
+  }
+
+  .alcohol {
+    background-color: #ff5c5c !important;
+  }
+
+  .other {
+    background-color: deepskyblue !important;
+  }
+
+}
+
