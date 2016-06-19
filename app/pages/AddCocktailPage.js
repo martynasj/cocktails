@@ -23,25 +23,19 @@ const controller = function (cocktailApi, Upload) {
       "http://localhost:3001/images/cocktail/fb219cd0-3562-11e6-ae24-ed0001a4b9ff.jpeg",
       "http://localhost:3001/images/cocktail/02d7f280-3563-11e6-ae24-ed0001a4b9ff.jpeg"
     ],
-    ingredients: {
-      alcohol: [
-        { name: 'Dark rum', amount: 6 }
-      ],
-      other: [
-        { name: 'Ginger beer', amount: 10 },
-        { name: 'Angostura', amount: 'dash' }
-      ],
-      garnish: [
-        "Lime wedge"
-      ]
-    },
-    description: {
-      brief: " In the US, the name Dark and Stormy is a trademark of Gosling Brothers Ltd of Bermuda. Gosling's claims there is only one recipe for a Dark 'N Stormy, but the NY Times reports that Gosling's has changed that recipe along with changing commercial relationships. Gosling's recipe does call for Gosling's Black Seal Rum."
-    },
+    alcohol: [
+      { name: 'Dark rum', amount: 6 }
+    ],
+    other: [
+      { name: 'Ginger beer', amount: 10 },
+      { name: 'Angostura', amount: 'dash' }
+    ],
+    garnish: [
+      "Lime wedge"
+    ],
+    description: " In the US, the name Dark and Stormy is a trademark of Gosling Brothers Ltd of Bermuda. Gosling's claims there is only one recipe for a Dark 'N Stormy, but the NY Times reports that Gosling's has changed that recipe along with changing commercial relationships. Gosling's recipe does call for Gosling's Black Seal Rum.",
     glassType: 'highball',
-    preparation: {
-      steps: [ 'Fill glass with ice', 'Add dark rum', 'Top with ginger beer', 'Add a dash of angustura bitters', 'Garnish with a lime wedge' ]
-    }
+    preparation: ['Fill glass with ice', 'Add dark rum', 'Top with ginger beer', 'Add a dash of angustura bitters', 'Garnish with a lime wedge']
   };
 
   this.input = {
@@ -57,17 +51,18 @@ const controller = function (cocktailApi, Upload) {
 
     const { name, amount } = this.input.ingredient;
 
+    // Find out if ingredient is alcoholic or other type
     if (_.includes(allDrinks, name)) {
-      this.cocktail.ingredients.alcohol.push({name, amount});
+      this.cocktail.alcohol.push({ name, amount });
     } else {
-      this.cocktail.ingredients.other.push({name, amount})
+      this.cocktail.other.push({ name, amount })
     }
 
   };
 
   this.addStep = (e) => {
     if (e.which === 13) {
-      this.cocktail.preparation.steps.push(this.input.step);
+      this.cocktail.preparation.push(this.input.step);
       this.input.step = '';
     }
   };
@@ -79,9 +74,11 @@ const controller = function (cocktailApi, Upload) {
         Upload.upload({
           url: 'http://localhost:3001/api/cocktails/images',
           data: { 'cocktail-image': file }
-        }).then( res => {
+        }).then(res => {
           this.cocktail.images.push(res.data.urls[0]);
-        }, err => { console.log(err) }, evt => {
+        }, err => {
+          console.log(err)
+        }, evt => {
           console.log(evt);
         })
       }
@@ -89,10 +86,13 @@ const controller = function (cocktailApi, Upload) {
   };
 
   this.submitForm = () => {
-    cocktailApi.addCocktail(this.cocktail).then( successResponse => {
+    cocktailApi.addCocktail(this.cocktail).then(successResponse => {
+      // If validation on the server side fails
+      if (successResponse.data.errors) return console.log(successResponse.data);
+
       const id = successResponse.data._id;
-      this.$router.navigate(['CocktailDetailsPage', { id } ])
-    }, errResponse => console.log(errResponse) )
+      this.$router.navigate(['CocktailDetailsPage', { id }])
+    }, errResponse => console.log(errResponse))
   };
 
 };
@@ -109,11 +109,11 @@ const template = `
 
       <div class="form-group">
         <label for="description">Brief Description</label>
-        <textarea maxlength="250" rows="5" class="form-control" id="description" ng-model="$ctrl.cocktail.description.brief" placeholder="Some description, max 250 characters"></textarea>
+        <textarea maxlength="250" rows="5" class="form-control" id="description" ng-model="$ctrl.cocktail.description" placeholder="Some description, max 250 characters"></textarea>
       </div>
 
       <!-- Image upload -->
-      <button ngf-select="$ctrl.onImageSelect($files)" multiple="multiple">Select files for upload</button>
+      <button type="button" ngf-select="$ctrl.onImageSelect($files)" multiple="multiple">Select files for upload</button>
 
       <!-- Image preview -->
       <div class="row" ng-if="$ctrl.cocktail.images.length > 0">
@@ -126,11 +126,11 @@ const template = `
       <!-- Ingredients -->
       <h2>Ingredients</h2>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="alcohol in $ctrl.cocktail.ingredients.alcohol">
+        <li class="list-group-item" ng-repeat="alcohol in $ctrl.cocktail.alcohol">
         <span class="label label-warning">{{alcohol.amount}}</span>
         {{alcohol.name}}
         </li>
-        <li class="list-group-item" ng-repeat="other in $ctrl.cocktail.ingredients.other">
+        <li class="list-group-item" ng-repeat="other in $ctrl.cocktail.other">
         <span class="label label-success">{{other.amount}}</span>
         {{other.name}}
         </li>
@@ -151,7 +151,7 @@ const template = `
       <!-- Preparation -->
       <h2>Preparation</h2>
       <ol class="list-group">
-        <li class="list-group-item" ng-repeat="step in $ctrl.cocktail.preparation.steps">{{step}}</li>
+        <li class="list-group-item" ng-repeat="step in $ctrl.cocktail.preparation">{{step}}</li>
         <input type="text" class="form-control" ng-model="$ctrl.input.step" ng-keypress="$ctrl.addStep($event)">
       </ol>
 

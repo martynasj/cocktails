@@ -3,18 +3,17 @@ import angular from 'angular';
 const app = angular.module('app');
 
 const controller = function(cocktailApi) {
-  const ctrl = this;
 
-  ctrl.cocktail = null;
+  this.cocktail = null;
 
-  this.$routerOnActivate = function(next, previous) {
+  this.$routerOnActivate = (next, previous) => {
     let id = next.params.id;
 
     cocktailApi.getCocktailById(id).then( successResponse => {
-      ctrl.cocktail = successResponse;
+      console.log(successResponse);
+      this.cocktail = successResponse;
     }, errorResponse => {
       console.log(errorResponse);
-      ctrl.cocktail = errorResponse;
     });
 
   };
@@ -33,18 +32,18 @@ const template = `
     <div class="row text-center">
       <div class="col-xs-12">
         <h1>{{ $ctrl.cocktail.name }}</h1>
-        <p>{{ $ctrl.cocktail.description.brief }}</p>
+        <p>{{ $ctrl.cocktail.description }}</p>
 
         <h2>Ingredients</h2>
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="ingredient in $ctrl.cocktail.ingredients.alcohol">
+          <li class="list-group-item" ng-repeat="ingredient in $ctrl.cocktail.alcohol">
             <p>{{ ingredient.name }} - {{ ingredient.amount }} cl</p>
           </li>
         </ul>
 
         <h2>Preparation</h2>
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="step in $ctrl.cocktail.preparation.steps">
+          <li class="list-group-item" ng-repeat="step in $ctrl.cocktail.preparation">
             <p>{{ step }}</p>
           </li>
         </ul>

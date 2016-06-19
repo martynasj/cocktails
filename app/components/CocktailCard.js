@@ -9,11 +9,8 @@ function controller() {
   this.id = cocktail._id;
   this.name = cocktail.name;
   this.mainImage = cocktail.images[0];
-  console.log(cocktail.ingredients.alcohol);
-  console.log(cocktail.ingredients.other);
-  this.ingredients = _.concat(cocktail.ingredients.alcohol, cocktail.ingredients.other);
-  this.description = cocktail.description.history;
-
+  this.ingredients = _.concat(cocktail.alcohol, cocktail.other);
+  this.description = cocktail.description;
 
 }
 

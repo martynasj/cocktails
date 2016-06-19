@@ -34,7 +34,7 @@ class CocktailsController {
 
   static getById(id, callback) {
 
-    Cocktail.find({_id: id}, (err, docs) => {
+    Cocktail.findById(id, (err, docs) => {
       if (err) return callback(err);
       callback(docs);
     });

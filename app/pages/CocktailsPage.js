@@ -1,6 +1,7 @@
 import angular from 'angular';
 import '../components/CocktailCard';
 import { filterByProperty } from '../services/customFilters';
+import { allSuggestions } from '../data/alcohol_data';
 
 const app = angular.module('app');
 
@@ -26,8 +27,7 @@ function controller(cocktailApi) {
   };
 
   this.loadTagSuggestions = (query) => {
-    const allPossibleTags = [ 'gin', 'martini', 'vermouth' ];
-    const matchedTags = _.filter(allPossibleTags, (value) => {
+    const matchedTags = _.filter(allSuggestions, (value) => {
       return value.includes(query);
     });
     return matchedTags;
