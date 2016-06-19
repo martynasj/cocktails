@@ -26,18 +26,12 @@ app.use(slow({
   delay: 10
 }));
 
-// To allow cors
+// To allow CORS
 app.use(cors());
 
 /**
  *  Routes
  * */
-
-// Log every requests url
-app.use(function(req, res, next) {
-  console.log(req.url);
-  next();
-});
 
 app.use('/api', [cocktailRoutes]);
 

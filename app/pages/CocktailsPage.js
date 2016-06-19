@@ -34,6 +34,8 @@ function controller(cocktailApi) {
   }
 
   this.onTagsChanged = () => {
+    //console.log(...this.tags);
+    //this.filterQuery = $.param(_.flatten(this.tags));
     this.filterQuery = '';
     if (this.tags.length > 0) {
       this.filterQuery = '?';
@@ -41,7 +43,6 @@ function controller(cocktailApi) {
         if (index != 0) {
           this.filterQuery += '&';
         }
-        console.log(value, index);
         const query = `ingredients=${value.text}`;
         this.filterQuery += query;
       });

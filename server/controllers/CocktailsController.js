@@ -13,9 +13,20 @@ class CocktailsController {
 
     // If there are any query parameters:
     if (queryParams) {
-      if (queryParams.hasOwnProperty('ingredients')) {
-        const ingredients = queryParams.ingredients;
-        query = { 'ingredients.alcohol.name': { $all: ['Gin', 'Campari'] } }
+      if (queryParams.hasOwnProperty('alcohol')) {
+        // Makes an array even if there's only 1 query param
+        const ingredients = _.concat([], queryParams.alcohol);
+        const alcoholQuery = {
+          'ingredients.alcohol.name': { $all: ingredients }
+        };
+        query = Object.assign({}, query, alcoholQuery);
+      }
+      if (queryParams.hasOwnProperty('other')) {
+        const otherIngredients = _.concat([], queryParams.other);
+        const otherQuery = {
+          'ingredients.other.name': { $all: otherIngredients }
+        };
+        query = Object.assign({}, query, otherQuery)
       }
     }
 

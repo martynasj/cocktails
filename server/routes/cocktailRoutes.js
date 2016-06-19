@@ -12,7 +12,6 @@ const upload = require('../config/multer');
  * /cocktails?ingredients=rum&ingredients=coke
  */
 router.get('/cocktails', function(req, res, next) {
-
   CocktailsController.getAll(req.query, function(result) {
     res.json(result);
   });
